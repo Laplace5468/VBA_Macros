@@ -1,0 +1,26 @@
+Dim i As Integer
+Dim j As Integer
+Dim m As Integer
+Dim n As Integer
+Dim d As Integer
+
+
+j = Range("A" & Rows.Count).End(xlUp).Row
+m = WorksheetFunction.Match("ID", Range("1:1"), 0)
+n = WorksheetFunction.Match("Summary", Range("1:1"), 0)
+d = WorksheetFunction.Match("Description", Range("1:1"), 0)
+
+For i = 1 To j
+
+    find_value = "[ISSUE:" & Cells(i, m).Value & "]"
+    replace_value = Cells(i, n).Value
+    
+    Columns(d).Replace What:=find_value, _
+                            Replacement:=replace_value, _
+                            LookAt:=xlPart, _
+                            SearchOrder:=xlByRows, _
+                            MatchCase:=False, _
+                            SearchFormat:=False
+    Next i
+
+MsgBox "Done With Replacement!"
